@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fake Comments | The Ultimate Social Mockup Tool</title>
+    <meta name="description" content="Generate realistic fake YouTube and Instagram comments instantly. Free, no login required.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- HTML2Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        .blob { position: absolute; filter: blur(40px); z-index: -1; opacity: 0.4; animation: move 10s infinite alternate; }
+        @keyframes move { from { transform: translate(0, 0) scale(1); } to { transform: translate(20px, -20px) scale(1.1); } }
+        
+        .yt-verified { width: 14px; height: 14px; }
+        .ig-verified { width: 12px; height: 12px; }
+        
+        /* Creator Heart Logic */
+        .creator-stack { position: relative; width: 20px; height: 20px; }
+        .creator-heart-badge {
+            position: absolute; bottom: -3px; right: -3px; width: 11px; height: 11px;
+            background: #ff0000; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 6px; border: 2px solid white;
+        }
+        .dark .creator-heart-badge { border-color: #0f0f0f; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30 transition group-hover:scale-105">
+                        <i class="fa-solid fa-comment-dots text-xl"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Fake<span class="text-brand-600">Comments</span></span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#features" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Features</a>
+                    <a href="#pricing" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">Pricing</a>
+                    <a href="#faq" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition">FAQ</a>
+                    <button onclick="openModal()" class="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-slate-900/20 transition transform hover:-translate-y-0.5">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-600 hover:text-brand-600 focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#features" class="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" onclick="toggleMobileMenu()">Features</a>
+                <a href="#pricing" class="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" onclick="toggleMobileMenu()">Pricing</a>
+                <a href="#faq" class="block px-3 py-3 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50" onclick="toggleMobileMenu()">FAQ</a>
+                <button onclick="openModal(); toggleMobileMenu()" class="w-full text-left px-3 py-3 text-brand-600 font-bold">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Abstract Background Blobs -->
+        <div class="blob bg-purple-300 w-96 h-96 rounded-full top-0 left-0 mix-blend-multiply"></div>
+        <div class="blob bg-blue-300 w-96 h-96 rounded-full top-0 right-0 mix-blend-multiply animation-delay-2000"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center relative z-10">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-50 text-brand-600 text-xs font-bold tracking-wide mb-6 border border-brand-100">
+                v2.0 IS LIVE
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Viral Social Proof <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600">In Seconds</span>
+            </h1>
+            <p class="mt-4 text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Create hyper-realistic YouTube and Instagram comment mockups for your memes, videos, and presentations. No Photoshop required.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="openModal()" class="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-brand-500/30 hover:bg-brand-700 transition hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rocket"></i> Start Generating
+                </button>
+                <a href="#features" class="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-info"></i> How it Works
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GENERATOR TOOL SECTION -->
+    <section id="tool" class="py-10 bg-white border-y border-slate-200 scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-900">The Generator</h2>
+                <p class="text-slate-500">Select a platform and customize your mockup.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                
+                <!-- CONTROLS -->
+                <div class="w-full lg:w-1/3 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <!-- Platform Tabs -->
+                    <div class="grid grid-cols-2 gap-2 p-1 bg-slate-200 rounded-xl mb-6">
+                        <button onclick="switchPlatform('youtube')" id="btn-yt" class="flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold bg-white text-slate-900 shadow-sm transition-all">
+                            <i class="fa-brands fa-youtube text-red-600"></i> YouTube
+                        </button>
+                        <button onclick="switchPlatform('instagram')" id="btn-ig" class="flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-900 transition-all">
+                            <i class="fa-brands fa-instagram text-pink-600"></i> Instagram
+                        </button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Upload -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Profile Photo</label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden border border-slate-300 group-hover:border-brand-500 transition">
+                                    <img id="avatar-mini" src="https://www.w3schools.com/howto/img_avatar.png" class="w-full h-full object-cover">
+                                </div>
+                                <span class="text-sm text-brand-600 font-semibold group-hover:underline">Upload Image</span>
+                                <input type="file" id="avatarInput" class="hidden" accept="image/*">
+                            </label>
+                        </div>
+
+                        <!-- Fields -->
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Username</label>
+                                <input type="text" id="username" value="@TechDaily" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Time</label>
+                                <input type="text" id="time" value="4 hours ago" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Comment</label>
+                            <textarea id="comment" rows="3" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm resize-none">This tool is amazing! 🚀</textarea>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Likes</label>
+                                <input type="text" id="likes" value="2.1K" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Replies</label>
+                                <input type="text" id="replies" value="12" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-500 outline-none text-sm">
+                            </div>
+                        </div>
+
+                        <!-- Toggles -->
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-600 uppercase">Dark Mode</span>
+                                <input type="checkbox" id="toggle-dark" class="accent-slate-900 w-4 h-4">
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-600 uppercase">Verified Badge</span>
+                                <input type="checkbox" id="toggle-verified" class="accent-blue-600 w-4 h-4">
+                            </div>
+                            <div class="flex justify-between items-center yt-only">
+                                <span class="text-xs font-bold text-slate-600 uppercase">Creator Heart</span>
+                                <input type="checkbox" id="toggle-heart" class="accent-red-600 w-4 h-4">
+                            </div>
+                        </div>
+
+                        <button onclick="download()" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/20 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Download Image
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PREVIEW AREA -->
+                <div class="w-full lg:w-2/3 bg-slate-100 rounded-2xl border border-slate-200 p-8 min-h-[500px] flex items-center justify-center relative overflow-hidden">
+                    <!-- Background Grid -->
+                    <div class="absolute inset-0 opacity-[0.05]" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                    <div id="canvas-wrap" class="relative z-10 w-full max-w-[600px] shadow-2xl rounded-lg overflow-hidden transition-all duration-300">
+                        
+                        <!-- YouTube Component -->
+                        <div id="preview-yt" class="bg-white p-5 font-roboto w-full transition-colors">
+                            <div class="flex gap-4">
+                                <img id="img-yt" src="https://www.w3schools.com/howto/img_avatar.png" class="w-10 h-10 rounded-full object-cover flex-shrink-0">
+                                <div class="flex-grow">
+                                    <div class="flex items-center gap-1 mb-1 flex-wrap">
+                                        <span id="name-yt" class="text-[13px] font-bold text-[#0f0f0f]">@TechDaily</span>
+                                        <svg id="badge-yt" class="yt-verified fill-[#606060] hidden" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zM9.8 17.3l-4.2-4.1L7 11.8l2.8 2.7L17 7.4l1.4 1.4-8.6 8.5z"></path></svg>
+                                        <span id="time-yt" class="text-[12px] text-[#606060]">4 hours ago</span>
+                                    </div>
+                                    <div id="text-yt" class="text-[14px] leading-5 text-[#0f0f0f] whitespace-pre-wrap mb-2">This tool is amazing! 🚀</div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="flex items-center gap-1.5 text-[#0f0f0f]">
+                                            <i class="fa-regular fa-thumbs-up text-[16px]"></i>
+                                            <span id="likes-yt" class="text-[12px] text-[#606060]">2.1K</span>
+                                        </div>
+                                        <div class="text-[#0f0f0f] mt-1"><i class="fa-regular fa-thumbs-down text-[16px]"></i></div>
+                                        <!-- Heart -->
+                                        <div id="heart-yt" class="hidden items-center relative ml-1">
+                                            <div class="creator-stack">
+                                                <img src="https://ui-avatars.com/api/?name=Creator&background=random" class="w-5 h-5 rounded-full">
+                                                <div class="creator-heart-badge"><i class="fa-solid fa-heart" style="font-size: 6px;"></i></div>
+                                            </div>
+                                        </div>
+                                        <span class="text-[12px] font-medium text-[#0f0f0f] ml-2">Reply</span>
+                                    </div>
+                                    <div id="replies-yt-wrap" class="mt-2 hidden">
+                                        <div class="flex items-center gap-2 text-brand-600 font-bold text-[13px] cursor-pointer">
+                                            <i class="fa-solid fa-caret-down"></i>
+                                            <span><span id="replies-yt-count">12</span> replies</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instagram Component -->
+                        <div id="preview-ig" class="bg-white p-4 font-sans w-full hidden transition-colors">
+                            <div class="flex gap-3 items-start">
+                                <img id="img-ig" src="https://www.w3schools.com/howto/img_avatar.png" class="w-8 h-8 rounded-full object-cover flex-shrink-0">
+                                <div class="flex-grow text-[14px] leading-5 text-[#000000]">
+                                    <div>
+                                        <span id="name-ig" class="font-semibold mr-1">TechDaily</span>
+                                        <svg id="badge-ig" class="ig-verified inline-block text-blue-500 fill-current mb-[2px] mr-1 hidden" viewBox="0 0 24 24"><path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .495.083.965.238 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z"></path></svg>
+                                        <span id="text-ig">This tool is amazing! 🚀</span>
+                                    </div>
+                                    <div class="flex gap-3 mt-2 text-[#737373] text-[12px]">
+                                        <span id="time-ig">4h</span>
+                                        <span id="likes-ig" class="font-semibold">2,100 likes</span>
+                                        <span class="font-semibold">Reply</span>
+                                    </div>
+                                    <div id="replies-ig-wrap" class="mt-3 hidden">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-[1px] bg-[#dbdbdb] dark:bg-[#262626]"></div>
+                                            <span class="text-[12px] font-semibold text-[#737373]">View replies (<span id="replies-ig-count">12</span>)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-1"><i class="fa-regular fa-heart text-[12px] text-[#8e8e8e]"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <h2 class="text-3xl font-bold text-slate-900 mb-12">Everything you need</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 1 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition duration-300 border border-slate-100">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mx-auto mb-4">
+                        <i class="fa-solid fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Instant Preview</h3>
+                    <p class="text-slate-500">Type and see changes instantly. No loading spinners, no watermarks.</p>
+                </div>
+                <!-- 2 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition duration-300 border border-slate-100">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mx-auto mb-4">
+                        <i class="fa-solid fa-moon text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Dark Mode</h3>
+                    <p class="text-slate-500">Supports fully accurate Dark Mode for both YouTube and Instagram.</p>
+                </div>
+                <!-- 3 -->
+                <div class="p-8 bg-slate-50 rounded-2xl hover:bg-white hover:shadow-xl transition duration-300 border border-slate-100">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mx-auto mb-4">
+                        <i class="fa-solid fa-check-circle text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Verified Badges</h3>
+                    <p class="text-slate-500">Add the official blue checkmark to any username with a single click.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING CARD -->
+    <section id="pricing" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="max-w-md mx-auto bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden hover:scale-105 transition duration-300">
+                <div class="p-8 bg-slate-900 text-white text-center relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 bg-brand-600 text-xs font-bold px-3 py-1 rounded-b-lg">POPULAR</div>
+                    <h3 class="text-2xl font-semibold mt-2">Pro Generator</h3>
+                    <div class="mt-4 flex justify-center items-baseline">
+                        <span class="text-5xl font-extrabold tracking-tight">$0</span>
+                        <span class="ml-1 text-xl text-slate-400">/ forever</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center text-slate-700"><i class="fa-solid fa-check text-green-500 mr-3"></i> Unlimited Downloads</li>
+                        <li class="flex items-center text-slate-700"><i class="fa-solid fa-check text-green-500 mr-3"></i> No Watermarks</li>
+                        <li class="flex items-center text-slate-700"><i class="fa-solid fa-check text-green-500 mr-3"></i> High-Res PNG Export</li>
+                        <li class="flex items-center text-slate-700"><i class="fa-solid fa-check text-green-500 mr-3"></i> Commercial Use Allowed</li>
+                    </ul>
+                    <button onclick="openModal()" class="w-full py-3 rounded-xl bg-brand-600 text-white font-bold hover:bg-brand-700 transition">Start Creating Free</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <!-- Q1 -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800">Is this tool really free?</span>
+                        <i class="fa-solid fa-plus text-slate-400"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-slate-600 text-sm border-t border-slate-200">
+                        Yes! FakeComments is 100% free to use for personal and commercial projects.
+                    </div>
+                </div>
+                <!-- Q2 -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800">Does it work on mobile?</span>
+                        <i class="fa-solid fa-plus text-slate-400"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-slate-600 text-sm border-t border-slate-200">
+                        Absolutely. The interface is fully responsive and works on iOS, Android, and Desktop.
+                    </div>
+                </div>
+                <!-- Q3 -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center bg-slate-50 hover:bg-slate-100 transition" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-slate-800">Do you save my images?</span>
+                        <i class="fa-solid fa-plus text-slate-400"></i>
+                    </button>
+                    <div class="hidden px-6 py-4 text-slate-600 text-sm border-t border-slate-200">
+                        No. All image generation happens locally in your browser using HTML5 Canvas. We never see your data.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white py-10 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0 text-center md:text-left">
+                <div class="font-bold text-xl mb-1">FakeComments</div>
+                <p class="text-slate-400 text-sm">The #1 Social Mockup Tool</n>
+                developed by CodeWithHappy</p>
+            </div>
+                <a href="https://github.com/CodingWithDodamani" class="hover:text-white transition"><i class="fa-brands fa-github text-xl"></i></a>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-slate-600 text-xs">
+            &copy; 2025 FakeComments. For educational and satirical purposes only.
+        </div>
+    </footer>
+
+    <!-- CUSTOM MODAL (Get Started) -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden" role="dialog" aria-modal="true">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <!-- Content -->
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-lg scale-95 opacity-0" id="modal-panel">
+                <div class="bg-white px-6 py-8 text-center">
+                    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 mb-6">
+                        <i class="fa-solid fa-wand-magic-sparkles text-brand-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-2">Start Creating</h3>
+                    <p class="text-slate-500 mb-8">Which platform would you like to generate a comment for?</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="jumpTo('youtube')" class="flex flex-col items-center p-4 border border-slate-200 rounded-xl hover:border-red-500 hover:bg-red-50 transition group">
+                            <i class="fa-brands fa-youtube text-3xl text-red-500 mb-2 group-hover:scale-110 transition"></i>
+                            <span class="font-bold text-slate-800">YouTube</span>
+                        </button>
+                        <button onclick="jumpTo('instagram')" class="flex flex-col items-center p-4 border border-slate-200 rounded-xl hover:border-pink-500 hover:bg-pink-50 transition group">
+                            <i class="fa-brands fa-instagram text-3xl text-pink-500 mb-2 group-hover:scale-110 transition"></i>
+                            <span class="font-bold text-slate-800">Instagram</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-slate-50 px-6 py-4 flex justify-end">
+                    <button type="button" onclick="closeModal()" class="text-sm font-semibold text-slate-600 hover:text-slate-900">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- STATE ---
+        let mode = 'youtube';
+        const els = {
+            user: document.getElementById('username'),
+            time: document.getElementById('time'),
+            text: document.getElementById('comment'),
+            likes: document.getElementById('likes'),
+            replies: document.getElementById('replies'),
+            file: document.getElementById('avatarInput'),
+            mini: document.getElementById('avatar-mini'),
+            dark: document.getElementById('toggle-dark'),
+            verified: document.getElementById('toggle-verified'),
+            heart: document.getElementById('toggle-heart'),
+            // Visuals
+            btnYt: document.getElementById('btn-yt'),
+            btnIg: document.getElementById('btn-ig'),
+            prevYt: document.getElementById('preview-yt'),
+            prevIg: document.getElementById('preview-ig'),
+            wrap: document.getElementById('canvas-wrap'),
+            ytOnly: document.querySelector('.yt-only')
+        };
+
+        // --- CORE LOGIC ---
+        function render() {
+            const isDark = els.dark.checked;
+
+            // Update Text
+            ['yt', 'ig'].forEach(p => {
+                document.getElementById(`name-${p}`).innerText = els.user.value;
+                document.getElementById(`text-${p}`).innerText = els.text.value;
+                // Formats
+                if(mode === 'youtube') {
+                    document.getElementById(`time-yt`).innerText = els.time.value;
+                    document.getElementById(`likes-yt`).innerText = els.likes.value;
+                    document.getElementById(`replies-yt-count`).innerText = els.replies.value;
+                } else {
+                    document.getElementById(`time-ig`).innerText = els.time.value;
+                    document.getElementById(`likes-ig`).innerText = els.likes.value + ' likes';
+                    document.getElementById(`replies-ig-count`).innerText = els.replies.value;
+                }
+            });
+
+            // Verified Badge
+            const ver = els.verified.checked;
+            document.getElementById('badge-yt').classList.toggle('hidden', !ver);
+            document.getElementById('badge-ig').classList.toggle('hidden', !ver);
+            document.getElementById('badge-ig').classList.toggle('inline-block', ver);
+
+            // Replies Visibility
+            const hasRep = els.replies.value && els.replies.value !== '0';
+            document.getElementById('replies-yt-wrap').classList.toggle('hidden', !hasRep);
+            document.getElementById('replies-ig-wrap').classList.toggle('hidden', !hasRep);
+
+            // YT Specifics
+            if(mode === 'youtube') {
+                const hrt = els.heart.checked;
+                document.getElementById('heart-yt').classList.toggle('hidden', !hrt);
+                document.getElementById('heart-yt').classList.toggle('flex', hrt);
+            }
+
+            // Dark Mode Logic
+            if(isDark) {
+                els.wrap.classList.add('dark');
+                
+                // YT Dark
+                els.prevYt.style.backgroundColor = "#0f0f0f";
+                document.getElementById('name-yt').style.color = "#f1f1f1";
+                document.getElementById('text-yt').style.color = "#f1f1f1";
+                document.getElementById('time-yt').style.color = "#aaaaaa";
+                document.querySelectorAll('#preview-yt .fa-thumbs-up, #preview-yt .fa-thumbs-down, #preview-yt .fa-caret-down').forEach(i => i.style.color = "#f1f1f1");
+                document.getElementById('badge-yt').style.fill = "#aaaaaa";
+                
+                // IG Dark
+                els.prevIg.style.backgroundColor = "#000000";
+                document.getElementById('name-ig').style.color = "#f5f5f5";
+                document.getElementById('text-ig').style.color = "#f5f5f5";
+                document.querySelector('#replies-ig-wrap .bg-\\[\\#dbdbdb\\]')?.classList.replace('bg-[#dbdbdb]', 'bg-[#262626]');
+            } else {
+                els.wrap.classList.remove('dark');
+                
+                // YT Light
+                els.prevYt.style.backgroundColor = "#ffffff";
+                document.getElementById('name-yt').style.color = "#0f0f0f";
+                document.getElementById('text-yt').style.color = "#0f0f0f";
+                document.getElementById('time-yt').style.color = "#606060";
+                document.querySelectorAll('#preview-yt .fa-thumbs-up, #preview-yt .fa-thumbs-down, #preview-yt .fa-caret-down').forEach(i => i.style.color = "#0f0f0f");
+                document.getElementById('badge-yt').style.fill = "#606060";
+
+                // IG Light
+                els.prevIg.style.backgroundColor = "#ffffff";
+                document.getElementById('name-ig').style.color = "#000000";
+                document.getElementById('text-ig').style.color = "#000000";
+                document.querySelector('#replies-ig-wrap .bg-\\[\\#262626\\]')?.classList.replace('bg-[#262626]', 'bg-[#dbdbdb]');
+            }
+
+            // Force "Reply" text color fix
+            const txt = isDark ? "#f1f1f1" : "#0f0f0f";
+            document.querySelectorAll('#preview-yt span').forEach(s => { if(s.innerText === 'Reply') s.style.color = txt; });
+        }
+
+        // --- UI ACTIONS ---
+        function switchPlatform(p) {
+            mode = p;
+            const active = "bg-white text-slate-900 shadow-sm";
+            const inactive = "text-slate-500 hover:text-slate-900";
+
+            if(p === 'youtube') {
+                els.btnYt.className = `flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition-all ${active}`;
+                els.btnIg.className = `flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition-all ${inactive}`;
+                els.prevYt.classList.remove('hidden');
+                els.prevIg.classList.add('hidden');
+                els.ytOnly.classList.remove('hidden');
+                
+                // Defaults
+                if(els.user.value.indexOf('@') === -1) els.user.value = '@' + els.user.value;
+                if(els.time.value.indexOf('ago') === -1) els.time.value = "4 hours ago";
+
+            } else {
+                els.btnIg.className = `flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition-all ${active}`;
+                els.btnYt.className = `flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold transition-all ${inactive}`;
+                els.prevIg.classList.remove('hidden');
+                els.prevYt.classList.add('hidden');
+                els.ytOnly.classList.add('hidden');
+
+                // Defaults
+                els.user.value = els.user.value.replace('@', '');
+                if(els.time.value.indexOf('h') === -1) els.time.value = "4h";
+            }
+            render();
+        }
+
+        function download() {
+            const target = mode === 'youtube' ? els.prevYt : els.prevIg;
+            const isDark = els.dark.checked;
+            let bg = "#ffffff";
+            if(isDark) bg = mode === 'youtube' ? "#0f0f0f" : "#000000";
+
+            html2canvas(target, { scale: 3, backgroundColor: bg, useCORS: true }).then(c => {
+                const a = document.createElement('a');
+                a.download = `fake-${mode}-comment.png`;
+                a.href = c.toDataURL();
+                a.click();
+            });
+        }
+
+        // --- INTERACTIVITY ---
+        // Modal
+        const modal = document.getElementById('modal');
+        const modalPanel = document.getElementById('modal-panel');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalPanel.classList.remove('opacity-0', 'scale-95');
+                modalPanel.classList.add('opacity-100', 'scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalPanel.classList.remove('opacity-100', 'scale-100');
+            modalPanel.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 200);
+        }
+
+        function jumpTo(plat) {
+            closeModal();
+            switchPlatform(plat);
+            document.getElementById('tool').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // FAQ Accordion
+        function toggleFaq(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('i');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Listeners
+        els.file.addEventListener('change', function() {
+            if(this.files && this.files[0]) {
+                const r = new FileReader();
+                r.onload = e => {
+                    els.mini.src = e.target.result;
+                    document.getElementById('img-yt').src = e.target.result;
+                    document.getElementById('img-ig').src = e.target.result;
+                };
+                r.readAsDataURL(this.files[0]);
+            }
+        });
+
+        Object.values(els).forEach(el => {
+            if(el && el.tagName && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) {
+                el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render);
+            }
+        });
+
+        // Init
+        render();
+    </script>
+</body>
+</html>
